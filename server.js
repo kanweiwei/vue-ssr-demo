@@ -20,14 +20,23 @@ server.get("/", (req, res) => {
     },
   });
 
-  renderder.renderToString(app, (err, html) => {
-    if (err) {
-      res.status(500).end("Internal server error");
-      return;
+  renderder.renderToString(
+    app,
+    {
+      title: "Vue SSR Demo",
+      meta: `
+      <meta name="description" content="vue,ssr" >
+      `,
+    },
+    (err, html) => {
+      if (err) {
+        res.status(500).end("Internal server error");
+        return;
+      }
+      res.setHeader("content-type", "text/html;charset=utf8");
+      res.end(html);
     }
-    res.setHeader("content-type", "text/html;charset=utf8");
-    res.end(html);
-  });
+  );
 });
 
 server.listen(8000, () => {
