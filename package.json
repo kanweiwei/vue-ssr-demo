@@ -1,0 +1,11 @@
+{
+  "name": "vue-ssr-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "kanweiwei <kwwnjujlc@sina.com>",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vue-server-renderer": "^2.6.14"
+  }
+}
