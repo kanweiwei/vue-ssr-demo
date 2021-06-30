@@ -1,7 +1,10 @@
 const Vue = require("vue");
 const express = require("express");
+const fs = require("fs");
 
-const renderder = require("vue-server-renderer").createRenderer();
+const renderder = require("vue-server-renderer").createRenderer({
+  template: fs.readFileSync("./index.template.html", "utf-8"),
+});
 
 const server = express();
 
@@ -19,7 +22,7 @@ server.get("/", (req, res) => {
 
   renderder.renderToString(app, (err, html) => {
     if (err) {
-        res.status(500).end("Internal server error")
+      res.status(500).end("Internal server error");
       return;
     }
     res.setHeader("content-type", "text/html;charset=utf8");
