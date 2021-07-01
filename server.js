@@ -48,6 +48,7 @@ const render = (req, res) => {
   };
   renderder.renderToString(context, (err, html) => {
     if (err) {
+      console.log(err);
       res.status(500).end("Internal server error");
       return;
     }
@@ -56,7 +57,7 @@ const render = (req, res) => {
 };
 
 server.get(
-  "/",
+  "*",
   isProd
     ? render
     : async (req, res) => {
