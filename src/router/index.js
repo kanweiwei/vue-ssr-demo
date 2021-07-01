@@ -18,6 +18,11 @@ export const createRouter = () => {
         name: "about",
         component: () => import("@/pages/About.vue"),
       },
+      {
+        path: "/articles",
+        name: "articles",
+        component: () => import("@/pages/Articles.vue"),
+      },
     ],
   });
 };
