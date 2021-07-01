@@ -4,9 +4,33 @@
   "main": "index.js",
   "author": "kanweiwei <kwwnjujlc@sina.com>",
   "license": "MIT",
+  "scripts": {
+    "build:client": "webpack --config ./config/client.webpack.config.js",
+    "build:server": "webpack --config ./config/server.webpack.config.js",
+    "build": "rimraf dist && concurrently \"npm run build:client\"  \"npm run build:server\""
+  },
   "dependencies": {
+    "concurrently": "^6.2.0",
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "vue": "^2.6.14",
     "vue-server-renderer": "^2.6.14"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.2.6",
+    "file-loader": "^6.2.0",
+    "friendly-errors-webpack-plugin": "^1.7.0",
+    "rimraf": "^3.0.2",
+    "url-loader": "^4.1.1",
+    "vue-loader": "15.x",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "4.x",
+    "webpack-cli": "3.x",
+    "webpack-merge": "^5.8.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }
