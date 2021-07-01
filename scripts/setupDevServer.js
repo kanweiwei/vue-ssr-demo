@@ -3,6 +3,7 @@ const fs = require("fs");
 const chokidar = require("chokidar");
 const webpack = require("webpack");
 const devMiddleware = require("webpack-dev-middleware");
+const hotMiddleware = require("webpack-hot-middleware");
 
 module.exports = (server, cb) => {
   let ready;
@@ -50,6 +51,14 @@ module.exports = (server, cb) => {
 
   // 监视 clientManifest
   const clientConfig = require("../config/client.webpack.config");
+
+  clientConfig.entry.app = [
+    "webpack-hot-middleware/client",
+    clientConfig.entry.app,
+  ]; // 热更新注入脚本
+  clientConfig.plugins.push(new webpack.HotModuleReplacementPlugin());
+  clientConfig.output.filename = "[name].js";
+
   const clientCompiler = webpack(clientConfig);
 
   const clientInstance = devMiddleware(clientCompiler, {
@@ -57,8 +66,13 @@ module.exports = (server, cb) => {
     logLevel: "silent", // 关闭日志输出
   });
 
+  server.use(
+    hotMiddleware(clientCompiler, {
+      log: false,
+    })
+  );
   // 静态资源在内存中
-  server.use(clientInstance)
+  server.use(clientInstance);
 
   clientCompiler.hooks.done.tap("client-build", () => {
     clientManifest = JSON.parse(

@@ -35,6 +35,7 @@
     "webpack": "4.x",
     "webpack-cli": "3.x",
     "webpack-dev-middleware": "3.x",
+    "webpack-hot-middleware": "^2.25.0",
     "webpack-merge": "^5.8.0",
     "webpack-node-externals": "^3.0.0"
   }
